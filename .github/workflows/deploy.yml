@@ -1,0 +1,21 @@
+name: Deploy Next App
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next app
+        run: npm run build
+
+      - name: Reload PM2
+        run: pm2 reload myapp
